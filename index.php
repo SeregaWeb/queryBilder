@@ -18,20 +18,18 @@
 
     $db = new mysql();
 
-    $query = new bilder();
+    $db->setFild('id');
+    $db->setFild("text");
 
-    $query->setFild('col1');
-    $query->setFild("col2");
+    $db->setNameTable('test');
 
-    $query->setNameTable('test');
+    $value = $db->select(false , 0);
+    print_r($value);
+    echo '<pre>';
 
-    $qry = $query->select(false , 0);
-    
-    $val = $db->select($qry);
-
-    foreach ($val as $v){
-        echo " | ". $v ." | ";
-    }
+    // foreach($value as $val){
+    //     echo "{".$val."}" ;
+    // }
 
     ?>
 </body>

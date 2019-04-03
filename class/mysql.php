@@ -26,7 +26,7 @@
 //   //закрытие соединение (рекомендуется)
 //   mysql_close($db);
 
-  class mysql
+  class mysql extends bilder
   {
     public $db;
 
@@ -37,16 +37,23 @@
 
     }
 
-    function select($qry){
-        
-        $result =mysql_query($qry, $this->db);
+    function select( $while , $limit){
+        $qry = $this->selectQuery($while , $limit);
+        $result = mysql_query($qry, $this->db);
+        echo $qry;  
         if (!$result) {
             echo 'Ошибка запроса: ' . mysql_error();
             exit;
         }
-        $row = mysql_fetch_row($result);
+        $bannerHeadline = "";
 
-        return $row;
+            while ($row = mysql_fetch_array($result)) {
+                print_r($row);
+                echo '<pre>';
+                $bannerHeadline.= $row[0] . $row[1];
+            }
+
+        return $bannerHeadline;
     }
 
     function __destruct()

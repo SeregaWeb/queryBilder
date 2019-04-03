@@ -12,28 +12,27 @@ class bilder
         $this->setLimit(0);
     }
     
-    
-    public function select( $while , $limit)
+    public function selectQuery( $while , $limit)
     {   
         $newstr = substr($this->filds, 0, -1);
-        echo $this->$newstr ;
+        echo $this->newstr ;
 
         $newname = substr($this->nameTable, 0, -1);
-        echo $this->$newname;
+        echo $this->newname;
         
         $this->setWhile($while);
         $this->setLimit($limit);
 
         if($while != false){
-        $que = 'SELECT '.$newstr.' FROM '.$newname.' WHILE '.$this->while; 
+            $this->que = 'SELECT '.$newstr.' FROM '.$newname.' WHILE '.$this->while; 
         }else{
-        $que = 'SELECT '.$newstr.' FROM '.$newname; 
+            $this->que = 'SELECT '.$newstr.' FROM '.$newname; 
 
         }
         if($limit > 0){
-            $que .= ' LIMIT '.$limit;
+            $this->que .= ' LIMIT '.$limit;
         }
-        return $que ;
+       return $this->que;
     }
 
     public function insert()
@@ -42,16 +41,16 @@ class bilder
         $this->setNameSt($nameSt);
         $que = 'INSERT INTO ';      
 
-        return $que ;
+        $this->que;
     }
 
     public function update()
     {
-        return $que ;
+        return $this->que;
     }
     public function delete()
     {
-        return $que ;
+        return $this->que;
     }
     
     protected function setNameSt($nameSt){
