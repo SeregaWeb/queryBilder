@@ -13,18 +13,23 @@ class bilder
     }
     
     
-    public function select($nameSt , $while , $limit)
+    public function select( $while , $limit)
     {   
         $newstr = substr($this->filds, 0, -1);
         echo $this->$newstr ;
 
-        $this->setNameTable($nameTable);
-        $this->setNameSt($nameSt);
+        $newname = substr($this->nameTable, 0, -1);
+        echo $this->$newname;
+        
         $this->setWhile($while);
         $this->setLimit($limit);
 
+        if($while != false){
+        $que = 'SELECT '.$newstr.' FROM '.$newname.' WHILE '.$this->while; 
+        }else{
+        $que = 'SELECT '.$newstr.' FROM '.$newname; 
 
-        $que = 'SELECT '.$newstr.' FROM '.$this->nameSt.' WHILE '.$this->while; 
+        }
         if($limit > 0){
             $que .= ' LIMIT '.$limit;
         }
@@ -52,9 +57,9 @@ class bilder
     protected function setNameSt($nameSt){
         $this->nameSt = $nameSt;
     }
-    protected function setNameTable($nameTable){
+    protected function setNameTables($nameTable){
         
-            $this->nameTable = $nameTable;
+        $this->nameTable = $nameTable;
         
     }
     protected function setWhile($while){
@@ -67,7 +72,7 @@ class bilder
     {
         return $this->nameSt;
     }
-    function getNameTable()
+    function getNameTables()
     {
         return $this->nameTable;
     }
@@ -90,12 +95,28 @@ class bilder
         $this->filds = $fild;
     }
 
-    function setFild($fild)
+    public function setFild($fild)
     {   
-        $str = $this->getFilds();
-        $str .= $fild.',';
-        $this->setFilds($str);
+        if(preg_match("/^[a-z0-9]+$/i", $fild)){
+            $str = $this->getFilds();
+            $str .= $fild.',';
+            $this->setFilds($str);
+        }else{
+            echo 'bad value! -> '.$fild.'<pre>';
+            return ;
+        }
 
+    }
+
+    public function setNameTable($name){
+        if(preg_match("/^[a-z0-9]+$/i", $name)){
+            $str = $this->getNameTables();
+            $str .= $name.',';
+            $this->setNameTables($str);
+        }else{
+            echo 'bad value! -> '.$name.'<pre>';
+            return ;
+        }
     }
 
 }

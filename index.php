@@ -1,7 +1,8 @@
 <?
- include 'class/bilder.php';
- include 'class/posgress.php';
- include 'class/mysql.php';
+    include 'config/config.php';
+    include 'class/bilder.php';
+    include 'class/posgress.php';
+    include 'class/mysql.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,15 +16,22 @@
     <h2>BD</h2>
     <?
 
+    $db = new mysql();
+
     $query = new bilder();
 
-    $query->setFild('name');
-    $query->setFild('name2');
-    $query->setFild('name3');
+    $query->setFild('col1');
+    $query->setFild("col2");
+
+    $query->setNameTable('test');
+
+    $qry = $query->select(false , 0);
     
+    $val = $db->select($qry);
 
-
-    echo $query->select(  'test' , 'test = test' , 5);
+    foreach ($val as $v){
+        echo " | ". $v ." | ";
+    }
 
     ?>
 </body>
